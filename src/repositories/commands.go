@@ -23,7 +23,7 @@ func NewCommandsRepository(db *sql.DB) *commands {
 func (repository commands) SearchCommand() (models.Command, error) {
 
 	lines, error := repository.db.Query(
-		"SELECT * FROM t_commands LIMIT 1",
+		"SELECT TC.id, TC.name AS command, TC.parameters, COALESCE(ERR.error, '') AS error, TC.creation_date FROM t_commands TC LEFT JOIN t_commands_errors ERR ON ERR.command_id = TC.id JOIN t_olts OLT ON OLT.id = TC.olt_id JOIN t_clients ON t_clients.id = TC.client_id JOIN t_onus ON t_clients.onu_id = t_onus.id ORDER BY client_id, TC.creation_date;",
 	)
 	if error != nil {
 		return models.Command{}, error
@@ -37,8 +37,7 @@ func (repository commands) SearchCommand() (models.Command, error) {
 			&command.ID,
 			&command.Name,
 			&command.Parameters,
-			&command.Olt_id,
-			&command.Last_update,
+			&command.Error,
 			&command.Creation_date,
 		); error != nil {
 			return models.Command{}, error
@@ -46,7 +45,6 @@ func (repository commands) SearchCommand() (models.Command, error) {
 	}
 
 	if command.Parameters == "" {
-		fmt.Println("Nao tem comando na fila")
 		return command, nil
 	}
 
@@ -56,6 +54,7 @@ func (repository commands) SearchCommand() (models.Command, error) {
 	if erroConnTL1 != nil {
 		log.Println(erroConnTL1)
 		os.Exit(3)
+		return command, fmt.Errorf("fail to connect to TL1 server")
 	}
 
 	fmt.Println("conexao tl1 ok")
@@ -102,6 +101,7 @@ func (repository commands) SearchCommand() (models.Command, error) {
 			// Execute the query with the JSON string
 			_, err = statement.Exec(resultError[1], command.ID)
 			if err != nil {
+				fmt.Println(err)
 				return models.Command{}, err
 			}
 

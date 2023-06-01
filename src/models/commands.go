@@ -11,10 +11,12 @@ import (
 type (
 	StringInterfaceMap map[string]interface{}
 	Command            struct {
-		ID         uint64 `json:"id,omitempty"`
+		ID         string `json:"id,omitempty"`
 		Name       string `json:"name,omitempty"`
 		Parameters string `json:"parameters,omitempty"`
 		Olt_id     uint64 `json:"olt_id,omitempty"`
+		Client_id  uint64 `json:"client_id,omitempty"`
+		Error      string `json:"error,omitempty"`
 		/* Parameters    StringInterfaceMap `json:"parameters,omitempty"` */
 		Last_update   time.Time `json:"last_update,omitempty"`
 		Creation_date time.Time `json:"creation_date,omitempty"`
