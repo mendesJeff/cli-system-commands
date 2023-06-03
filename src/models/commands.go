@@ -16,6 +16,8 @@ type (
 		Parameters string `json:"parameters,omitempty"`
 		Olt_id     uint64 `json:"olt_id,omitempty"`
 		Client_id  uint64 `json:"client_id,omitempty"`
+		Olt_name   string `json:"olt_name,omitempty"`
+		Onu_serial string `json:"onu_serial,omitempty"`
 		Error      string `json:"error,omitempty"`
 		/* Parameters    StringInterfaceMap `json:"parameters,omitempty"` */
 		Last_update   time.Time `json:"last_update,omitempty"`
