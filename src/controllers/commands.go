@@ -3,7 +3,6 @@ package controllers
 import (
 	"commands/src/database"
 	"commands/src/repositories"
-	"fmt"
 )
 
 func SearchCommand() {
@@ -15,13 +14,11 @@ func SearchCommand() {
 	}
 	defer db.Close()
 
+	// Acessa o repositorio para consultar os comandos
 	repository := repositories.NewCommandsRepository(db)
-	command, error := repository.SearchCommand()
+	error = repository.SearchCommand()
 	if error != nil {
-
 		return
 	}
-
-	fmt.Println(command)
 
 }

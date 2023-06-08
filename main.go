@@ -13,6 +13,8 @@ func main() {
 	// Load environment variables
 	config.EnveriormentsVariable()
 
+	fmt.Printf("\nRodando servidor de comandos\n")
+
 	// Connect to the database
 	db, err := database.Connect()
 	if err != nil {
@@ -21,8 +23,6 @@ func main() {
 	}
 	defer db.Close()
 
-	fmt.Println("Login DB OK")
-
 	// Start the loop
 	for {
 
@@ -30,4 +30,5 @@ func main() {
 
 		time.Sleep(5 * time.Second)
 	}
+
 }
