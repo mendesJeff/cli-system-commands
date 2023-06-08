@@ -11,17 +11,16 @@ import (
 type (
 	StringInterfaceMap map[string]interface{}
 	Command            struct {
-		ID         string `json:"id,omitempty"`
-		Name       string `json:"name,omitempty"`
-		Parameters string `json:"parameters,omitempty"`
-		Olt_id     uint64 `json:"olt_id,omitempty"`
-		Client_id  uint64 `json:"client_id,omitempty"`
-		Olt_name   string `json:"olt_name,omitempty"`
-		Onu_serial string `json:"onu_serial,omitempty"`
-		Error      string `json:"error,omitempty"`
-		/* Parameters    StringInterfaceMap `json:"parameters,omitempty"` */
-		Last_update   time.Time `json:"last_update,omitempty"`
-		Creation_date time.Time `json:"creation_date,omitempty"`
+		ID            string             `json:"id,omitempty"`
+		Name          string             `json:"name,omitempty"`
+		Olt_id        uint64             `json:"olt_id,omitempty"`
+		Client_id     uint64             `json:"client_id,omitempty"`
+		Olt_name      string             `json:"olt_name,omitempty"`
+		Onu_serial    string             `json:"onu_serial,omitempty"`
+		Error         string             `json:"error,omitempty"`
+		Parameters    StringInterfaceMap `json:"parameters,omitempty"`
+		Last_update   time.Time          `json:"last_update,omitempty"`
+		Creation_date time.Time          `json:"creation_date,omitempty"`
 	}
 )
 
@@ -73,8 +72,6 @@ func (command *Command) validate() error {
 	switch {
 	case command.Name == "":
 		return errors.New("the field 'name' is mandatory")
-	case command.Parameters == "":
-		return errors.New("the field 'parameters' is mandatory")
 
 	}
 	return nil
@@ -83,6 +80,4 @@ func (command *Command) validate() error {
 func (command *Command) formate() {
 	command.Name = strings.ReplaceAll(command.Name, " ", "")
 	command.Name = strings.TrimSpace(command.Name)
-	command.Parameters = strings.TrimSpace(command.Parameters)
-
 }
