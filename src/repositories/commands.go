@@ -70,6 +70,7 @@ func (repository commands) SearchCommand() error {
 
 	// escrevendo a mensagem na conexão (socket)
 	fmt.Fprintf(connection, login+"\n")
+	log.Println(login)
 
 	// ouvindo a resposta do servidor
 	responseBytes := make([]byte, 1024) // Adjust the buffer size as per your needs
@@ -80,6 +81,7 @@ func (repository commands) SearchCommand() error {
 	}
 
 	response := string(responseBytes[:n])
+	log.Println(response)
 
 	// verificando retorno com erro
 	index := strings.Index(response, "EADD=")
@@ -88,12 +90,11 @@ func (repository commands) SearchCommand() error {
 		return fmt.Errorf(value)
 	}
 
-	log.Println("login successfully")
-
 	for i := 0; i < len(tl1_command); i++ {
 
 		// escrevendo a mensagem na conexão (socket)
 		fmt.Fprintf(connection, "%v", tl1_command[i])
+		log.Println(tl1_command[i])
 
 		// ouvindo a resposta do servidor
 		responseBytes := make([]byte, 1024) // Adjust the buffer size as per your needs
@@ -104,6 +105,7 @@ func (repository commands) SearchCommand() error {
 		}
 
 		response := string(responseBytes[:n])
+		log.Println(response)
 
 		// verificando retorno com erro
 		index := strings.Index(response, "EADD=")
