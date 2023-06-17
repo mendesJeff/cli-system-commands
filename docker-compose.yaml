@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  commands:
+    image: cli-system-commands
+    container_name: cli-system-commands
+   
+    environment:
+      - DB_USER=root
+      - DB_PASS=r00t_cL1Syst3m
+      - DB_NAME=clisystem
+      - DB_HOST=db_clisystem
+    networks:
+      - cli-system
+    
+    
+networks:
+  cli-system:
+    driver: bridge
