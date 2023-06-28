@@ -35,10 +35,20 @@ func EnveriormentsVariable() {
 		Tl1Port = 5000
 	}
 
-	StrDatabaseConnection = fmt.Sprintf(
+	/* StrDatabaseConnection = fmt.Sprintf(
 		"%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASS"),
+		os.Getenv("DB_NAME"),
+	) */
+
+	// Teste rodando apenas o mysql no docker
+	StrDatabaseConnection = fmt.Sprintf(
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASS"),
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
 		os.Getenv("DB_NAME"),
 	)
 
