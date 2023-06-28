@@ -22,7 +22,7 @@ func NewCommandsRepository(db *sql.DB) *commands {
 
 func (repository commands) SearchCommand() error {
 	lines, error := repository.db.Query(
-		"SELECT TC.id, t_clients.id AS client_id, TC.name, TC.parameters, COALESCE(TC.error, '') AS error, t_onus.onu_serial, olt_name, TC.last_update FROM t_commands TC JOIN t_olts OLT ON OLT.id = TC.olt_id JOIN t_clients ON t_clients.id = TC.client_id JOIN t_onus ON t_clients.onu_id = t_onus.id WHERE TC.error IS NULL OR TC.error = '' AND TC.last_update < NOW() ORDER BY TC.last_update;",
+		"SELECT TC.id, t_clients.id AS client_id, TC.name, TC.parameters, COALESCE(TC.error, '') AS error, t_onus.onu_serial, olt_name, TC.last_update FROM t_commands TC JOIN t_olts OLT ON OLT.id = TC.olt_id JOIN t_clients ON t_clients.id = TC.client_id JOIN t_onus ON t_clients.onu_id = t_onus.id WHERE TC.error IS NULL AND TC.last_update < NOW() ORDER BY TC.last_update;",
 	)
 	if error != nil {
 		return error
