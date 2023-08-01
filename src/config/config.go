@@ -35,14 +35,7 @@ func EnveriormentsVariable() {
 		Tl1Port = 5000
 	}
 
-	/* StrDatabaseConnection = fmt.Sprintf(
-		"%s:%s@/%s?charset=utf8&parseTime=True&loc=Local",
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASS"),
-		os.Getenv("DB_NAME"),
-	) */
-
-	// Teste rodando apenas o mysql no docker
+	// Conexao no mysql entre dos containers
 	StrDatabaseConnection = fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		os.Getenv("DB_USER"),
@@ -51,6 +44,14 @@ func EnveriormentsVariable() {
 		os.Getenv("DB_PORT"),
 		os.Getenv("DB_NAME"),
 	)
+
+	// Conexao para rodar a API local - para fazer DEBUG
+	/* StrDatabaseConnection = fmt.Sprintf(
+		"%s:%s@tcp(localhost:3306)/%s?charset=utf8&parseTime=True&loc=Local",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASS"),
+		os.Getenv("DB_NAME"),
+	) */
 
 	StrTl1Server = fmt.Sprintf(
 		"%s:%s",
